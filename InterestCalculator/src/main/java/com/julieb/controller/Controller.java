@@ -6,6 +6,7 @@
 package com.julieb.controller;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 
 /**
@@ -24,6 +25,8 @@ public class Controller {
         BigDecimal finalBalance;
         BigDecimal difference;
         
+        
+        
         HashMap<String,String[]> interestCompounded = new HashMap<>();
         
         for (int i=1; i<= years; i++){
@@ -31,14 +34,14 @@ public class Controller {
             finalBalance = currentBalance.multiply (
                     ( BigDecimal.valueOf(1)
                             .add((interest
-                                    .divide(BigDecimal.valueOf(100) ))))
+                                    .divide(BigDecimal.valueOf(100) )))).setScale(2, RoundingMode.CEILING)
             );
             
             difference = finalBalance.subtract(currentBalance);
             
-            values[0] = currentBalance.toString();
-            values[1]= difference.toString();
-            values[2]= finalBalance.toString();
+            values[0] = currentBalance.setScale(2, RoundingMode.CEILING).toString();
+            values[1]= difference.setScale(2,RoundingMode.CEILING).toString();
+            values[2]= finalBalance.setScale(2,RoundingMode.CEILING).toString();
             
             interestCompounded.put(String.valueOf(i), values);
             

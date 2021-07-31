@@ -52,7 +52,7 @@ public class UI {
             
             System.out.format("Year:%s \n"+
                               "Began with:$%s \n"+
-                              "Earned:$%s+ \n"+
+                              "Earned:$%s \n"+
                               "Ended with:$%s \n"                      
             , k, results[0], results[1], results[2]);
         
