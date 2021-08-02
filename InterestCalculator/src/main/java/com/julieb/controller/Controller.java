@@ -20,24 +20,25 @@ public class Controller {
     
     public HashMap<String,String[]> calculateInterest( BigDecimal interest, BigDecimal principal, Double years){
         int year;
-        String values[] = new String[3];
+        
         BigDecimal currentBalance = principal;
         BigDecimal finalBalance;
         BigDecimal difference;
+        
+       BigDecimal multiplyBy = (interest.divide(BigDecimal.valueOf(100))).add(BigDecimal.valueOf(1));
         
         
         
         HashMap<String,String[]> interestCompounded = new HashMap<>();
         
         for (int i=1; i<= years; i++){
+           String values[] = new String[3];
            
-            finalBalance = currentBalance.multiply (
-                    ( BigDecimal.valueOf(1)
-                            .add((interest
-                                    .divide(BigDecimal.valueOf(100) )))).setScale(2, RoundingMode.CEILING)
-            );
+            finalBalance = currentBalance.multiply (multiplyBy);
             
             difference = finalBalance.subtract(currentBalance);
+            
+            
             
             values[0] = currentBalance.setScale(2, RoundingMode.CEILING).toString();
             values[1]= difference.setScale(2,RoundingMode.CEILING).toString();
@@ -46,7 +47,6 @@ public class Controller {
             interestCompounded.put(String.valueOf(i), values);
             
             currentBalance = finalBalance;
-        
         }
         
         return interestCompounded;
